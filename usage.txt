@@ -1,0 +1,25 @@
+Fastmri Dataset
+
+run create_metadata.py with desired parameters to create a 
+csv file of fastmri files to process.
+
+then
+run create_fastmri_modl.py to create fastmri dataset 
+for MoDL and VarNet OR
+
+run create_fastmri_ssdu for SSDU
+
+------------------------------------------------------------
+
+Modl and Varnet
+
+create a conda environment using requirements.txt file
+then
+pip install -r pip_packages_requirements.txt
+
+------------------------------------------------------------
+
+SSDU
+create a new environment with python=3.6.10
+then
+pip install -r requirements.txt
