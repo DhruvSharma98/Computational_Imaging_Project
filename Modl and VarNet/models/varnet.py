@@ -36,24 +36,24 @@ class data_consistency(nn.Module):
 
         return next_x
 
-# %%
+#aw51ylaq_DS
 class VarNet(nn.Module):
     def __init__(self, n_layers, k_iters) -> None:
-
         super().__init__()
 
         self.n_cascades = k_iters
         self.dc = data_consistency()
-        self.dw = unet.Unet(2, 2, num_pool_layers=n_layers)
+
+        self.unets = nn.ModuleList([unet.Unet(2, 2, num_pool_layers=n_layers).cuda() for i in range(self.n_cascades)])
 
     def forward(self, x0, coil, mask):
-
         x0 = r2c(x0, axis=1)
-        xk = x0.clone()
+        x = x0.clone()
 
         for c in range(self.n_cascades):
+            x = self.dc(x, x0, coil, mask)
 
-            x = self.dc(xk, x0, coil, mask)
-            x = x - r2c(self.dw(c2r(x, axis=1)), axis=1)
+            z = self.unets[c]
+            x = x - r2c(z(c2r(x, axis=1)), axis=1)
 
         return c2r(x, axis=1)

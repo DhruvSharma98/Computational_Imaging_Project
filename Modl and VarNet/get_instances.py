@@ -23,7 +23,7 @@ def get_dataset(dataset_name, dataset_params, mode, verbose=True):
     return dataset
 
 def get_loaders(dataset_name, dataset_params, batch_size, modes, verbose=True):
-    from torch.utils.data import DataLoader
+    from torch.utils.data import DataLoader ### aw51ylaq_DS - imports should not be inside functions
     dataloaders = {}
     for mode in modes:
         dataset = get_dataset(dataset_name, dataset_params, mode, verbose)
@@ -34,7 +34,7 @@ def get_loaders(dataset_name, dataset_params, batch_size, modes, verbose=True):
 
 def get_model(model_name, model_params, device):
     if model_name == 'base_modl':
-        from models.modl import MoDL
+        from models.modl import MoDL ### aw51ylaq_DS - imports should not be inside functions
         model = MoDL(**model_params)
     elif model_name == 'base_varnet':
         from models.varnet import VarNet
